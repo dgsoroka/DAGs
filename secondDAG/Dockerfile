@@ -12,14 +12,10 @@ RUN python3 -m pip install --no-use-pep517 cryptography
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-EXPOSE 8888
+EXPOSE 8080
 
-RUN airflow db init
+ENTRYPOINT airflow standalone
 
-RUN airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin --password admin
-
-ENTRYPOINT airflow webserver --port 8888
-
-CMD airflow scheduler
+CMD echo cat standalone_admin_password.txt
 
 VOLUME /airflow
